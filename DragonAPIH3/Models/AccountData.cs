@@ -4,7 +4,7 @@
     {
         // Fields
         private static List<Account> _accounts = new List<Account>()
-        { 
+        {
             new Account("Dragon", "12"),
             new Account("DragonOwner", "123"),
             new Account("SongWriterDragon", "1234"),
@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="acc"></param>
         /// <returns></returns>
-        public bool AddAccount (Account acc)
+        public bool AddAccount(Account acc)
         {
             try
             {
@@ -29,7 +29,7 @@
                 Account newAccount = new Account(acc.Username, acc.PrivateKey);
                 _accounts.Add(newAccount);
 
-                return true;    
+                return true;
             }
             catch (Exception)
             {

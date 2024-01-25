@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DragonAPIH3.Services;
-using DragonAPIH3.Interfaces;
+﻿using DragonAPIH3.Services;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Mvc;
 namespace DragonAPIH3.Controllers
 {
     [ApiController]
@@ -10,10 +8,10 @@ namespace DragonAPIH3.Controllers
     public class AuthController : Controller
     {
 
-        private readonly IJwtService _jwtService;
+        private readonly JwtService _jwtService;
         LoginService _loginService = new LoginService();
 
-        public AuthController(IJwtService jwtService)
+        public AuthController(JwtService jwtService)
         {
             _jwtService = jwtService;
         }

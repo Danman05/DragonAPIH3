@@ -1,12 +1,6 @@
-
-using DragonAPIH3.Interfaces;
 using DragonAPIH3.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 namespace DragonAPIH3
 {
@@ -23,11 +17,16 @@ namespace DragonAPIH3
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -39,6 +38,7 @@ namespace DragonAPIH3
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4Og3k2WGv9XycF6MuT1lcamno3qixKTz")) // Replace with your secret key
                 };
             });
+            builder.Services.AddSingleton<JwtService>();
 
             var app = builder.Build();
 
